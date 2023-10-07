@@ -32,9 +32,11 @@ async function soma() {
         const btn_9 = await driver.findElement(By.id('b3'))
         const btn_divisao = await driver.findElement(By.id('b28'))
         const btn_multiplicacao = await driver.findElement(By.id('b20'))
+        const btn_potencia = await driver.findElement(By.id('b31'))
         const btn_8 = await driver.findElement(By.id('b2'))
         const btn_ponto = await driver.findElement(By.id('b26'))
         const tdElement = await driver.findElement(By.css('td[onclick*="limpa()"]'));
+        
 
         // ---------------------------------- SOMA ------------------------------------------
         
@@ -101,6 +103,23 @@ async function soma() {
         console.log('Resultado ' + resultGrandes)
         await tdElement.click()
 
+        // --------------------------------- Soma por 0 ----------------------------------------
+
+        for (let i = 0; i < 5; i++) {
+            await btn_0.click()
+        }
+
+        await btn_soma.click()
+
+        for (let i = 0; i < 5; i++) {
+            await btn_1.click()
+        }
+
+        await driver.wait(until.elementTextIs(divElement, '11111'), 5000)
+        const resultSomaZero = await divElement.getText()
+        console.log('Resultado ' + resultSomaZero)
+        await tdElement.click()
+
         // -------------------------------- Subtração ----------------------------------------
 
         await btn_8.click()
@@ -112,6 +131,55 @@ async function soma() {
         console.log('Resultado ' + resultSubtracao)
         await tdElement.click()
 
+        // -------------------------------- Subtração de dois negativos ----------------------
+
+        await btn_negativo.click()
+        await btn_3.click()
+        await btn_negativo.click()
+        await btn_8.click()
+
+        await driver.wait(until.elementTextIs(divElement, '-11'), 5000)
+        const resultSubtracaoNegativa = await divElement.getText()
+        console.log('Resultado ' + resultSubtracaoNegativa)
+        await tdElement.click()
+
+        // ------------------------------- Subtração com resultado negativo ------------------
+
+        await btn_3.click()
+        await btn_negativo.click()
+        await btn_7.click()
+
+        await driver.wait(until.elementTextIs(divElement, '-4'), 5000)
+        const resultSubNegativo = await divElement.getText()
+        console.log('Resultado ' + resultSubNegativo)
+        await tdElement.click()
+
+        // ------------------------------- Subtração decimal ---------------------------------
+
+        await btn_5.click()
+        await btn_ponto.click()
+        await btn_5.click()
+        await btn_negativo.click()
+        await btn_2.click()
+        await btn_ponto.click()
+        await btn_5.click()
+
+        await driver.wait(until.elementTextIs(divElement, '3'), 5000)
+        const resutDecimal = await divElement.getText()
+        console.log('Resultado ' + resutDecimal)
+        await tdElement.click()
+
+        // ------------------------------ Subtração por zeros -------------------------------
+
+        await btn_0.click()
+        await btn_negativo.click()
+        await btn_9.click()
+
+        await driver.wait(until.elementTextIs(divElement, '-9'), 5000)
+        const resultZero = await divElement.getText()
+        console.log('Resultado ' + resultZero)
+        await tdElement.click()
+
         // ------------------------------- Multiplicação -------------------------------------
 
         await btn_6.click()
@@ -121,6 +189,55 @@ async function soma() {
         await driver.wait(until.elementTextIs(divElement, '42'), 5000)
         const resultMultiplicacao = await divElement.getText()
         console.log('Resultado ' + resultMultiplicacao)
+        await tdElement.click()
+
+        // ------------------------------- Multiplicação de negativos ------------------------
+
+        await btn_negativo.click()
+        await btn_2.click()
+        await btn_multiplicacao.click()
+        await btn_5.click()
+
+        await driver.wait(until.elementTextIs(divElement, '-10'), 5000)
+        const resultMultNegativo = await divElement.getText()
+        console.log('Resultado ' + resultMultNegativo)
+        await tdElement.click()
+
+        // ------------------------------- Multiplicação de decimais -------------------------
+
+        await btn_3.click()
+        await btn_ponto.click()
+        await btn_5.click()
+        await btn_multiplicacao.click()
+        await btn_2.click()
+        await btn_ponto.click()
+        await btn_5.click()
+
+        await driver.wait(until.elementTextIs(divElement, '8,75'), 5000)
+        const resultMultDeci = await divElement.getText()
+        console.log('Resultado ' + resultMultDeci)
+        await tdElement.click()
+
+        // ------------------------------- Multiplicação por zero ----------------------------
+
+        await btn_0.click()
+        await btn_multiplicacao.click()
+        await btn_5.click()
+
+        await driver.wait(until.elementTextIs(divElement, '0'), 5000)
+        const resultMultZero = await divElement.getText()
+        console.log('Resultado ' + resultMultZero)
+        await tdElement.click()
+
+        // ------------------------------- Multiplicação por 1 -------------------------------
+
+        await btn_1.click()
+        await btn_multiplicacao.click()
+        await btn_5.click()
+
+        await driver.wait(until.elementTextIs(divElement, '5'), 5000)
+        const resultMultUm = await divElement.getText()
+        console.log('Resultado ' + resultMultUm)
         await tdElement.click()
 
         // ------------------------------- Divisão por 0 -------------------------------------
@@ -140,9 +257,47 @@ async function soma() {
         await btn_divisao.click()
         await btn_9.click()
 
-        await driver.wait(until.elementTextIs(divElement, '0,3333333333333333'))
+        await driver.wait(until.elementTextIs(divElement, '0,3333333333333333'), 5000)
         const resultDivMenDiv = await divElement.getText()
         console.log('Resultado ' + resultDivMenDiv)
+        await tdElement.click()
+
+        // --------------------------- Divisão de decimais -----------------------------------
+
+        await btn_3.click()
+        await btn_ponto.click()
+        await btn_5.click()
+        await btn_divisao.click()
+        await btn_7.click()
+        await btn_ponto.click()
+        await btn_2.click()
+
+        await driver.wait(until.elementTextIs(divElement, '0,4861111111111111'), 5000)
+        const resultDivDecimal = await divElement.getText()
+        console.log('Resultado ' + resultDivDecimal)
+        await tdElement.click()
+
+        // --------------------------- Divisão normal -----------------------------------------
+
+        await btn_8.click()
+        await btn_divisao.click()
+        await btn_2.click()
+
+        await driver.wait(until.elementTextIs(divElement, '4'), 5000)
+        const resultDiv = await divElement.getText()
+        console.log('Resultado ' + resultDiv)
+        await tdElement.click()
+
+        // ---------------------------- Divisão com dizima -----------------------------------------
+
+        await btn_1.click()
+        await btn_3.click()
+        await btn_divisao.click()
+        await btn_9.click()
+
+        await driver.wait(until.elementTextIs(divElement, '1,4444444444444444'), 5000)
+        const resultDizima = await divElement.getText()
+        console.log('Resultado ' + resultDizima)
         await tdElement.click()
 
         // --------------------------- Verificar limpar visor ---------------------------------
@@ -152,7 +307,21 @@ async function soma() {
 
         // await driver.wait(until.elementTextIs(inputElement, "2"))
         const resultDisplay = await inputElement.getAttribute('value')
-        console.log('resultado ' + resultDisplay)
+        console.log('Resultado ' + resultDisplay)
+        await tdElement.click()
+
+
+        // -------------------------- Potência de dois números ---------------------------------
+
+        await btn_potencia.click()
+        await driver.findElement(By.id('cx31_0')).sendKeys('2')
+        await driver.findElement(By.id('cx31_1')).sendKeys('3')
+
+        await driver.findElement(By.xpath("//button[text()='Calcular']")).click()
+
+        const resultDisplayPot = await inputElement.getAttribute('value')
+        console.log('Resultado ' + resultDisplayPot)
+
 
     } catch (error) {
         console.log('Error:', error)
