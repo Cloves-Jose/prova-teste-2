@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "selenium-webdriver": "^4.13.0"
+    "selenium-webdriver": "^4.13.0",
+    "xml2json": "^0.12.0"
   }
 }

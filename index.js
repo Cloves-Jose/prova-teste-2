@@ -1,10 +1,18 @@
 const {Builder, Browser, By, Key, until} = require('selenium-webdriver');
-
+const fs = require('fs')
+const parse = require('xml2json')
 
 const driver = new Builder().forBrowser('chrome').build();
 let path = 'https://www.calculadoraonline.com.br/basica';
 
-async function soma() {
+let dataXml
+
+fs.readFile('./data.xml', (err, data) => {
+    let json = parse.toJson(data)
+    dataXml = json
+})
+
+async function operacoes() {
     try {   
         // Abre a página da calculadora
         await driver.get(path);
@@ -44,13 +52,18 @@ async function soma() {
         await btn_2.click();
         await btn_soma.click();
         await btn_2.click();
-        
-        // Aguarda até que o resultado seja exibido
-        await driver.wait(until.elementTextIs(divElement, '4'), 5000);
+        await btn_igual.click()
 
-        // Captura e imprime o resultado
-        const resultSoma = await divElement.getText();
-        console.log('Resultado: ' + resultSoma);
+        await driver.sleep(2000)
+
+        const resultSoma = await inputElement.getAttribute('value')
+
+        if (resultSoma == '4') {
+            console.log('Resultado '+ resultSoma)
+        } else {
+            console.log('O valor é diferente do esperado')
+        }
+        
         await tdElement.click()
 
         // ---------------------------------- SOMA NEGATIVA ---------------------------------
@@ -60,13 +73,19 @@ async function soma() {
         await btn_5.click()
         await btn_soma.click()
         await btn_3.click()
+        await btn_igual.click()
 
-        // Aguarda até que o resultado seja exibido
-        await driver.wait(until.elementTextIs(divElement, '-2'), 5000);
+        await driver.sleep(2000)
 
-        // Captura e imprime o resultado
-        const resultNegativo = await divElement.getText()
-        console.log('Resultado ' + resultNegativo)
+        const resultNegativo = await inputElement.getAttribute('value')
+
+        if (resultNegativo == '-2') {
+            console.log('Resultado '+ resultNegativo)
+        } else {
+            console.log('O valor é diferente do esperado')
+        }
+
+        
         await tdElement.click()
 
         // ---------------------------------- SOMA DECIMAL ----------------------------------
@@ -79,11 +98,19 @@ async function soma() {
         await btn_1.click()
         await btn_ponto.click()
         await btn_5.click()
+        await btn_igual.click()
 
-        await driver.wait(until.elementTextIs(divElement, '2'), 5000);
+        await driver.sleep(2000)
 
-        const resulDecimal = await divElement.getText()
-        console.log('Resultado ' + resulDecimal)
+        const resulDecimal = await inputElement.getAttribute('value')
+
+        if (resulDecimal == '2') {
+            console.log('Resultado '+ resulDecimal)
+        } else {
+            console.log('O valor é diferente do esperado')
+        }
+
+        
         await tdElement.click()
 
         // --------------------------------- Soma de números grandes -------------------------
@@ -98,9 +125,19 @@ async function soma() {
             await btn_1.click()
         }
 
-        await driver.wait(until.elementTextIs(divElement, '111110'), 5000)
-        const resultGrandes = await divElement.getText()
-        console.log('Resultado ' + resultGrandes)
+        await btn_igual.click()
+
+        await driver.sleep(2000)
+
+        const resultGrandes = await inputElement.getAttribute('value')
+
+        if (resultGrandes == '111110') {
+            console.log('Resultado '+ resultGrandes)
+        } else {
+            console.log('O valor é diferente do esperado')
+        }
+
+        
         await tdElement.click()
 
         // --------------------------------- Soma por 0 ----------------------------------------
@@ -115,9 +152,19 @@ async function soma() {
             await btn_1.click()
         }
 
-        await driver.wait(until.elementTextIs(divElement, '11111'), 5000)
-        const resultSomaZero = await divElement.getText()
-        console.log('Resultado ' + resultSomaZero)
+        await btn_igual.click()
+
+        await driver.sleep(2000)
+
+        const resultSomaZero = await inputElement.getAttribute('value')
+
+        if (resultSomaZero == '11111') {
+            console.log('Resultado '+ resultSomaZero)
+        } else {
+            console.log('O valor é diferente do esperado')
+        }
+
+       
         await tdElement.click()
 
         // -------------------------------- Subtração ----------------------------------------
@@ -125,10 +172,19 @@ async function soma() {
         await btn_8.click()
         await btn_negativo.click()
         await btn_3.click()
+        await btn_igual.click()
 
-        await driver.wait(until.elementTextIs(divElement, '5'), 5000)
-        const resultSubtracao = await divElement.getText()
-        console.log('Resultado ' + resultSubtracao)
+        await driver.sleep(2000)
+
+        const resultSubtracao = await inputElement.getAttribute('value')
+
+        if (resultSubtracao == '5') {
+            console.log('Resultado '+ resultSubtracao)
+        } else {
+            console.log('O valor é diferente do esperado')
+        }
+
+        
         await tdElement.click()
 
         // -------------------------------- Subtração de dois negativos ----------------------
@@ -137,10 +193,19 @@ async function soma() {
         await btn_3.click()
         await btn_negativo.click()
         await btn_8.click()
+        await btn_igual.click()
 
-        await driver.wait(until.elementTextIs(divElement, '-11'), 5000)
-        const resultSubtracaoNegativa = await divElement.getText()
-        console.log('Resultado ' + resultSubtracaoNegativa)
+        await driver.sleep(2000)
+
+        const resultSubtracaoNegativa = await inputElement.getAttribute('value')
+
+        if (resultSubtracaoNegativa == '-11') {
+            console.log('Resultado '+ resultSubtracaoNegativa)
+        } else {
+            console.log('O valor é diferente do esperado')
+        }
+
+        
         await tdElement.click()
 
         // ------------------------------- Subtração com resultado negativo ------------------
@@ -148,10 +213,18 @@ async function soma() {
         await btn_3.click()
         await btn_negativo.click()
         await btn_7.click()
+        await btn_igual.click()
 
-        await driver.wait(until.elementTextIs(divElement, '-4'), 5000)
-        const resultSubNegativo = await divElement.getText()
-        console.log('Resultado ' + resultSubNegativo)
+        await driver.sleep(2000)
+
+        const resultSubNegativo =  await inputElement.getAttribute('value')
+
+        if (resultSubNegativo == '-4') {
+            console.log('Resultado '+ resultSubNegativo)
+        } else {
+            console.log('O valor é diferente do esperado')
+        }
+
         await tdElement.click()
 
         // ------------------------------- Subtração decimal ---------------------------------
@@ -163,10 +236,18 @@ async function soma() {
         await btn_2.click()
         await btn_ponto.click()
         await btn_5.click()
+        await btn_igual.click()
 
-        await driver.wait(until.elementTextIs(divElement, '3'), 5000)
-        const resutDecimal = await divElement.getText()
-        console.log('Resultado ' + resutDecimal)
+        await driver.sleep(2000)
+
+        const resutDecimal = await inputElement.getAttribute('value')
+
+        if (resutDecimal == '3') {
+            console.log('Resultado '+ resutDecimal)
+        } else {
+            console.log('O valor é diferente do esperado')
+        }
+
         await tdElement.click()
 
         // ------------------------------ Subtração por zeros -------------------------------
@@ -174,10 +255,18 @@ async function soma() {
         await btn_0.click()
         await btn_negativo.click()
         await btn_9.click()
+        await btn_igual.click()
 
-        await driver.wait(until.elementTextIs(divElement, '-9'), 5000)
-        const resultZero = await divElement.getText()
-        console.log('Resultado ' + resultZero)
+        await driver.sleep(2000)
+
+        const resultZero = await inputElement.getAttribute('value')
+
+        if (resultZero == '-9') {
+            console.log('Resultado '+ resultZero)
+        } else {
+            console.log('O valor é diferente do esperado')
+        }
+
         await tdElement.click()
 
         // ------------------------------- Multiplicação -------------------------------------
@@ -185,10 +274,18 @@ async function soma() {
         await btn_6.click()
         await btn_multiplicacao.click()
         await btn_7.click()
+        await btn_igual.click()
 
-        await driver.wait(until.elementTextIs(divElement, '42'), 5000)
-        const resultMultiplicacao = await divElement.getText()
-        console.log('Resultado ' + resultMultiplicacao)
+        await driver.sleep(2000)
+
+        const resultMultiplicacao = await inputElement.getAttribute('value')
+
+        if (resultMultiplicacao == '42') {
+            console.log('Resultado '+ resultMultiplicacao)
+        } else {
+            console.log('O valor é diferente do esperado')
+        }
+
         await tdElement.click()
 
         // ------------------------------- Multiplicação de negativos ------------------------
@@ -197,10 +294,18 @@ async function soma() {
         await btn_2.click()
         await btn_multiplicacao.click()
         await btn_5.click()
+        await btn_igual.click()
 
-        await driver.wait(until.elementTextIs(divElement, '-10'), 5000)
-        const resultMultNegativo = await divElement.getText()
-        console.log('Resultado ' + resultMultNegativo)
+        await driver.sleep(2000)
+
+        const resultMultNegativo = await inputElement.getAttribute('value')
+
+        if (resultMultNegativo == '-10') {
+            console.log('Resultado ' + resultMultNegativo)
+        } else {
+            console.log('O valor é diferente do esperado')
+        }
+
         await tdElement.click()
 
         // ------------------------------- Multiplicação de decimais -------------------------
@@ -212,10 +317,18 @@ async function soma() {
         await btn_2.click()
         await btn_ponto.click()
         await btn_5.click()
+        await btn_igual.click()
 
-        await driver.wait(until.elementTextIs(divElement, '8,75'), 5000)
-        const resultMultDeci = await divElement.getText()
-        console.log('Resultado ' + resultMultDeci)
+        await driver.sleep(2000)
+
+        const resultMultDeci = await inputElement.getAttribute('value')
+
+        if (resultMultDeci == '8,75') {
+            console.log('Resultado '+ resultMultDeci)
+        } else {
+            console.log('O valor é diferente do esperado')
+        }
+
         await tdElement.click()
 
         // ------------------------------- Multiplicação por zero ----------------------------
@@ -223,10 +336,18 @@ async function soma() {
         await btn_0.click()
         await btn_multiplicacao.click()
         await btn_5.click()
+        await btn_igual.click()
 
-        await driver.wait(until.elementTextIs(divElement, '0'), 5000)
-        const resultMultZero = await divElement.getText()
-        console.log('Resultado ' + resultMultZero)
+        await driver.sleep(2000)
+
+        const resultMultZero = await inputElement.getAttribute('value')
+
+        if (resultMultZero == '0') {
+            console.log('Resultado '+ resultMultZero)
+        } else {
+            console.log('O valor é diferente do esperado')
+        }
+
         await tdElement.click()
 
         // ------------------------------- Multiplicação por 1 -------------------------------
@@ -234,10 +355,18 @@ async function soma() {
         await btn_1.click()
         await btn_multiplicacao.click()
         await btn_5.click()
+        await btn_igual.click()
 
-        await driver.wait(until.elementTextIs(divElement, '5'), 5000)
-        const resultMultUm = await divElement.getText()
-        console.log('Resultado ' + resultMultUm)
+        await driver.sleep(2000)
+
+        const resultMultUm = await inputElement.getAttribute('value')
+
+        if (resultMultUm == '5') {
+            console.log('Resultado '+ resultMultUm)
+        } else {
+            console.log('O valor é diferente do esperado')
+        }
+
         await tdElement.click()
 
         // ------------------------------- Divisão por 0 -------------------------------------
@@ -245,10 +374,18 @@ async function soma() {
         await btn_9.click()
         await btn_divisao.click()
         await btn_0.click()
+        await btn_igual.click()
 
-        await driver.wait(until.elementTextIs(divElement, 'Infinity'), 5000)
-        const resultDivZero = await divElement.getText()
-        console.log('Resultado ' + resultDivZero)
+        await driver.sleep(2000)
+
+        const resultDivZero = await inputElement.getAttribute('value')
+
+        if (resultDivZero == 'Infinity') {
+            console.log('Resultado '+ resultDivZero)
+        } else {
+            console.log('O valor é diferente do esperado')
+        }
+
         await tdElement.click()
 
         // ---------------------------- Divisor menor que dividendo -------------------------
@@ -256,10 +393,18 @@ async function soma() {
         await btn_3.click()
         await btn_divisao.click()
         await btn_9.click()
+        await btn_igual.click()
 
-        await driver.wait(until.elementTextIs(divElement, '0,3333333333333333'), 5000)
-        const resultDivMenDiv = await divElement.getText()
-        console.log('Resultado ' + resultDivMenDiv)
+        await driver.sleep(2000)
+
+        const resultDivMenDiv = await inputElement.getAttribute('value')
+
+        if (resultDivMenDiv == '0,3333333333333333') {
+            console.log('Resultado '+ resultDivMenDiv)
+        } else {
+            console.log('O valor é diferente do esperado')
+        }
+
         await tdElement.click()
 
         // --------------------------- Divisão de decimais -----------------------------------
@@ -271,10 +416,18 @@ async function soma() {
         await btn_7.click()
         await btn_ponto.click()
         await btn_2.click()
+        await btn_igual.click()
 
-        await driver.wait(until.elementTextIs(divElement, '0,4861111111111111'), 5000)
-        const resultDivDecimal = await divElement.getText()
-        console.log('Resultado ' + resultDivDecimal)
+        await driver.sleep(2000)
+
+        const resultDivDecimal = await inputElement.getAttribute('value')
+
+        if (resultDivDecimal == '0,4861111111111111') {
+            console.log('Resultado ' + resultDivDecimal)
+        } else {
+            console.log('O valor é diferente do esperado')
+        }
+
         await tdElement.click()
 
         // --------------------------- Divisão normal -----------------------------------------
@@ -282,22 +435,40 @@ async function soma() {
         await btn_8.click()
         await btn_divisao.click()
         await btn_2.click()
+        await btn_igual.click()
 
-        await driver.wait(until.elementTextIs(divElement, '4'), 5000)
-        const resultDiv = await divElement.getText()
-        console.log('Resultado ' + resultDiv)
+        await driver.sleep(2000)
+
+        const resultDiv = await inputElement.getAttribute('value')
+      
+        if (resultDiv == '4') {
+            console.log('Resultado ' + resultDiv)
+        } else {
+            console.log('O valor é diferente do esperado')
+        }
+
         await tdElement.click()
 
         // ---------------------------- Divisão com dizima -----------------------------------------
 
-        await btn_1.click()
-        await btn_3.click()
-        await btn_divisao.click()
-        await btn_9.click()
+        await btn_1.click();
+        await btn_3.click();
+        await btn_divisao.click();
+        await btn_9.click();
+        await btn_igual.click();
 
-        await driver.wait(until.elementTextIs(divElement, '1,4444444444444444'), 5000)
-        const resultDizima = await divElement.getText()
-        console.log('Resultado ' + resultDizima)
+        // Agora, você deve esperar um pouco para o resultado ser exibido
+        await driver.sleep(2000);
+
+        // Obtenha o texto do visor da calculadora e verifique se ele é igual ao valor esperado
+        const resultDizima = await inputElement.getAttribute('value');
+
+        if (resultDizima == '1,4444444444444444') {
+            console.log('Resultado ' + resultDizima)
+        } else {
+            console.log('O valor é difernete do esperado')
+        }
+        
         await tdElement.click()
 
         // --------------------------- Verificar limpar visor ---------------------------------
@@ -307,7 +478,12 @@ async function soma() {
 
         // await driver.wait(until.elementTextIs(inputElement, "2"))
         const resultDisplay = await inputElement.getAttribute('value')
-        console.log('Resultado ' + resultDisplay)
+
+        if (resultDisplay == "") {
+            console.log('Resultado ' + resultDisplay)
+        } else {
+            console.log('O valor é difernete do esperado')
+        }
         await tdElement.click()
 
 
@@ -320,7 +496,12 @@ async function soma() {
         await driver.findElement(By.xpath("//button[text()='Calcular']")).click()
 
         const resultDisplayPot = await inputElement.getAttribute('value')
-        console.log('Resultado ' + resultDisplayPot)
+
+        if (resultDisplayPot == '8') {
+            console.log('Resultado ' + resultDisplayPot)
+        } else {
+            console.log('O valor é difernete do esperado')
+        }
 
 
     } catch (error) {
@@ -331,4 +512,4 @@ async function soma() {
 }
 
 
-soma();
+operacoes();
