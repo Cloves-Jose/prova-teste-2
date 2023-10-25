@@ -1,16 +1,8 @@
 const {Builder, Browser, By, Key, until} = require('selenium-webdriver');
-const fs = require('fs')
-const parse = require('xml2json')
 
 const driver = new Builder().forBrowser('chrome').build();
 let path = 'https://www.calculadoraonline.com.br/basica';
-
-let dataXml
-
-fs.readFile('./data.xml', (err, data) => {
-    let json = parse.toJson(data)
-    dataXml = json
-})
+let data = require('./data')
 
 async function operacoes() {
     try {   
@@ -476,6 +468,8 @@ async function operacoes() {
         await btn_2.click()
         await tdElement.click()
 
+        await driver.sleep(2000)
+
         // await driver.wait(until.elementTextIs(inputElement, "2"))
         const resultDisplay = await inputElement.getAttribute('value')
 
@@ -495,14 +489,124 @@ async function operacoes() {
 
         await driver.findElement(By.xpath("//button[text()='Calcular']")).click()
 
+        await driver.sleep(2000)
+
         const resultDisplayPot = await inputElement.getAttribute('value')
 
         if (resultDisplayPot == '8') {
             console.log('Resultado ' + resultDisplayPot)
         } else {
-            console.log('O valor é difernete do esperado')
+            console.log('O valor é diferente do esperado')
+        }
+        await tdElement.click()
+
+        // ------------------------------ Teclado ----------------------------------------------
+
+        // Soma de dois números
+        
+        console.log('\n')
+
+        await inputElement.sendKeys(data.caso_01.valor_01)
+        await inputElement.sendKeys('+')
+        await inputElement.sendKeys(data.caso_01.valor_02)
+        await inputElement.sendKeys(Key.RETURN)
+
+        const resultSumTec = await inputElement.getAttribute('value')
+
+        await driver.sleep(2000)
+
+        if (resultSumTec == data.caso_01.result.toString()) {
+            console.log(data.caso_01.descricao)
+            console.log('Resultado ' + resultSumTec)
+        } else {
+            console.log('O valor é diferente do esperado')
         }
 
+        await tdElement.click()
+
+        // Soma de resultado negativo
+
+        await inputElement.sendKeys('-')
+        await inputElement.sendKeys(data.caso_02.valor_01)
+        await inputElement.sendKeys('+')
+        await inputElement.sendKeys(data.caso_02.valor_02)
+        await inputElement.sendKeys(Key.RETURN)
+
+        const restulSumNeg = await inputElement.getAttribute('value')
+
+        await driver.sleep(2000)
+
+        if (restulSumNeg === data.caso_02.result.toString()) {
+            console.log(data.caso_02.descricao)
+            console.log('Resultado ' + restulSumNeg)
+        } else {
+            console.log('O valor é diferente do esperado')
+        }
+
+        await tdElement.click()
+
+        // Soma com decimais
+
+        await inputElement.sendKeys(data.caso_03.valor_01)
+        await inputElement.sendKeys('+')
+        await inputElement.sendKeys(data.caso_03.valor_02)
+        await inputElement.sendKeys(Key.RETURN)
+
+        const resutlSumDec = await inputElement.getAttribute('value')
+
+        await driver.sleep(2000)
+        if (resutlSumDec === data.caso_03.result.toString()) {
+            console.log(data.caso_03.descricao)
+            console.log('Resultado ' + resutlSumDec)
+        } else {
+            console.log('O valor é diferente do esperado ' + resutlSumDec)
+        }
+
+        await tdElement.click()
+
+        // Soma de números grandes
+        
+        await inputElement.sendKeys(data.caso_04.valor_01)
+        await inputElement.sendKeys('+')
+        await inputElement.sendKeys(data.caso_04.valor_02)
+        await inputElement.sendKeys(Key.RETURN)
+
+        const resultSumBig = await inputElement.getAttribute('value')
+
+        await driver.sleep(2000)
+
+        if (resultSumBig === data.caso_04.result.toString()) {
+            console.log(data.caso_04.descricao)
+            console.log('Resultado ' + resultSumBig)
+        } else {
+            console.log('O valor é diferente do espeado ' + resultSumBig)
+        }
+
+        await tdElement.click()
+
+        // Soma por zero
+
+        for (let i = 0; i < 5; i++) {
+            await inputElement.sendKeys(data.caso_05.valor_01)
+        }
+        await inputElement.sendKeys('+')
+        for (let i = 0; i < 5; i++) {
+            await inputElement.sendKeys(data.caso_05.valor_02)
+        }
+        await inputElement.sendKeys(Key.RETURN)
+
+        const resultSumZero = await inputElement.getAttribute('value')
+
+        await driver.sleep(2000)
+
+        if (resultSumZero === data.caso_05.result.toString()) {
+            console.log(data.caso_05.descricao)
+            console.log('Resultado ' + resultSumZero)
+        } else {
+            console.log('O valor é diferente do esperado ' + resultSumZero)
+        }
+
+        await tdElement.click()
 
     } catch (error) {
         console.log('Error:', error)
