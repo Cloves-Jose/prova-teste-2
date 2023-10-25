@@ -608,6 +608,46 @@ async function operacoes() {
 
         await tdElement.click()
 
+        // Subtração de dois inteiros
+
+        await inputElement.sendKeys(data.caso_06.valor_01)
+        await inputElement.sendKeys('-')
+        await inputElement.sendKeys(data.caso_06.valor_02)
+        await inputElement.sendKeys(Key.RETURN)
+
+        const resultSub = await inputElement.getAttribute('value')
+
+        await driver.sleep(2000)
+
+        if (resultSub === data.caso_06.result.toString()) {
+            console.log(data.caso_06.descricao)
+            console.log('Resultado ' + resultSub)
+        } else {
+            console.log('O valor é diferente do esperado ' + resultSub)
+        }
+
+        await tdElement.click()
+
+        // Subtração com resultado negativo
+        
+        await inputElement.sendKeys(data.caso_08.valor_01)
+        await inputElement.sendKeys('-')
+        await inputElement.sendKeys(data.caso_08.valor_02)
+        await inputElement.sendKeys(Key.RETURN)
+
+        const resulSubNegResult = await inputElement.getAttribute('value')
+
+        await driver.sleep(2000)
+
+        if (resulSubNegResult === data.caso_08.result.toString()) {
+            console.log(data.caso_08.descricao);
+            console.log('Resultado ' + resulSubNegResult)
+        } else {
+            console.log('O valor é diferente do esperado ' + resulSubNegResult)
+        }
+
+        await tdElement.click()
+
     } catch (error) {
         console.log('Error:', error)
     } finally {
