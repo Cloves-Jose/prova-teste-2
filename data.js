@@ -12,31 +12,31 @@ let data = {
     },
     soma: [
         {
-            descricao: "Realizar soma entre dois números inteiros positivos",
+            descricao: "Caso 01 - Realizar soma entre dois números inteiros positivos",
             valor_01: 2,
             valor_02: 2,
             result: 4
         },
         {
-            descricao: "Realizar soma com resultado negativo",
+            descricao: "Caso 02 - Realizar soma com resultado negativo",
             valor_01: -5,
             valor_02: 3,
             result: -2
         },
         {
-            descricao: "Realizar soma com números decimais",
+            descricao: "Caso 03 - Realizar soma com números decimais",
             valor_01: 0.5,
             valor_02: 1.5,
             result: 2
         },
         {
-            descricao: "Realizar soma com número grandes",
+            descricao: "Caso 04 - Realizar soma com número grandes",
             valor_01: 99999,
             valor_02: 11111,
             result: 111110
         },
         {
-            descricao: "Realizar soma por zero",
+            descricao: "Caso 05 - Realizar soma por zero",
             valor_01: 0,
             valor_02: 11111,
             result: 11111
@@ -44,31 +44,31 @@ let data = {
     ],
     subtracao: [
         {
-            descricao: "Subtração de dois inteiros positivos",
+            descricao: "Caso 01 - Subtração de dois inteiros positivos",
             valor_01: 8,
             valor_02: 3,
             result: 5
         },
         {
-            descricao: "Subtração de um número negativo e um positivo",
+            descricao: "Caso 02 - Subtração de um número negativo e um positivo",
             valor_01: -3,
             valor_02: 8,
             result: -11
         },
         {
-            descricao: "Subtração com resultado negativo",
+            descricao: "Caso 03 - Subtração com resultado negativo",
             valor_01: 3,
             valor_02: 7,
             result: -4
         },
         {
-            descricao: "Subtração de números decimais",
+            descricao: "Caso 04 - Subtração de números decimais",
             valor_01: 5.5,
             valor_02: 2.5,
             result: 3
         },
         {
-            descricao: "Subtração de um número com zero",
+            descricao: "Caso 05 - Subtração de um número com zero",
             valor_01: 0,
             valor_02: 9,
             result: -9
@@ -76,31 +76,31 @@ let data = {
     ],
     multiplicacao: [
         {
-            descricao: "Multiplicacao de dois números naturais positivos",
+            descricao: "Caso 01 - Multiplicacao de dois números naturais positivos",
             valor_01: 6,
             valor_02: 7,
             result: 42
         },
         {
-            descricao: "Multiplicação de números negativos",
+            descricao: "Caso 02 - Multiplicação de números negativos",
             valor_01: -2,
             valor_02: -5,
             result: 10
         },
         {
-            descricao: "Multiplicação de números decimais",
+            descricao: "Caso 03 - Multiplicação de números decimais",
             valor_01: 3.5,
             valor_02: 2.5,
             result: '8,75'
         },
         {
-            descricao: "Multiplicação por zero",
+            descricao: "Caso 04 - Multiplicação por zero",
             valor_01: 0,
             valor_02: 5,
             result: 0
         },
         {
-            descricao: "Multiplicação por um",
+            descricao: "Caso 05 - Multiplicação por um",
             valor_01: 1,
             valor_02: 5,
             result: 5
@@ -108,31 +108,31 @@ let data = {
     ],
     divisao: [
         {
-            descricao: "Divisão por zero",
+            descricao: "Caso 01 - Divisão por zero",
             valor_01: 9,
             valor_02: 0,
             result: 'Infinity'
         },
         {
-            descricao: "Divisor menor que dividendo",
+            descricao: "Caso 02 - Divisor menor que dividendo",
             valor_01: 3,
             valor_02: 9,
             result: '0,3333333333333333'
         },
         {
-            descricao: "Divisão de dois números decimais",
+            descricao: "Caso 03 - Divisão de dois números decimais",
             valor_01: 3.5,
             valor_02: 7.2,
             result: '0,4861111111111111'
         },
         {
-            descricao: "Divisão de dois números naturais positivos",
+            descricao: "Caso 04 - Divisão de dois números naturais positivos",
             valor_01: 8,
             valor_02: 2,
             result: 4
         },
         {
-            descricao: "Divisão com dízima periódica",
+            descricao: "Caso 05 - Divisão com dízima periódica",
             valor_01: 13,
             valor_02: 9,
             result: '1,4444444444444444'
@@ -140,31 +140,31 @@ let data = {
     ],
     potenciacao: [
         {
-            descricao: "Potência de dois números inteiros positivos",
+            descricao: "Caso 01 - Potência de dois números inteiros positivos",
             valor_01: 2,
             valor_02: 3,
             result: 8
         },
         {
-            descricao: "Potência de um número decimal e um inteiro",
+            descricao: "Caso 02 - Potência de um número decimal e um inteiro",
             valor_01: 3.7,
             valor_02: 5,
             result: "693,4395700000002"
         },
         {
-            descricao: "Potência de um número negativo",
+            descricao: "Caso 03 - Potência de um número negativo",
             valor_01: -3,
             valor_02: 4,
             result: 81
         },
         {
-            descricao: "Zero elevado a uma potência",
+            descricao: "Caso 04 - Zero elevado a uma potência",
             valor_01: 0,
             valor_02: 5,
             result: 0
         },
         {
-            descricao: "Número positivo elevado a zero",
+            descricao: "Caso 05 - Número positivo elevado a zero",
             valor_01: 5,
             valor_02: 0,
             result: 1
