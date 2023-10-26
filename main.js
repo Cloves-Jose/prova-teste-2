@@ -18,7 +18,7 @@ async function operacoes() {
         // Execute um scroll para a exibição do elemento visor
         await driver.executeScript("arguments[0].scrollIntoView();", divElement);
         
-        // Linpa o visor
+        // Limpa o visor
         const tdElement = await driver.findElement(By.css('td[onclick*="limpa()"]'));
         
         // ----------------------------- SOMA -----------------------------------
